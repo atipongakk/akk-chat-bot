@@ -1,3 +1,3 @@
 <?php
-	echo "Chat bot akktest";
+	echo "Chat bot akk";
 ?>
