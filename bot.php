@@ -4,6 +4,9 @@ $access_token = 'JELYzFHt3hu/AlyBP53zOWKN+/Mp/Pb1kt4EburU5bw6lcUTUkVsR6E2OmnO1UA
 $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
+$file = fopen("test.txt","w");
+fwrite($file,"Hello World. Testing!");
+fclose($file);
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
 	// Loop through each event
