@@ -5,7 +5,7 @@ $content = file_get_contents('php://input');
 // Parse JSON
 $events = json_decode($content, true);
 $file = fopen("log.txt","w+");
-fwrite($file,$events);
+fwrite($file,$content);
 fclose($file);
 // Validate parsed JSON data
 if (!is_null($events['events'])) {
