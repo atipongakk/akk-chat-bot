@@ -56,7 +56,7 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			$file = fopen("retreive.txt","w+");
+			$file = fopen('IMG_' . $messageId . '.jpg','w+');
 			fwrite($file,$result);
 			fclose($file);
 
@@ -93,6 +93,18 @@ if (!is_null($events['events'])) {
 		else if($event['type'] == 'message' && $event['message']['type'] == 'audio'){
 			// Get message Id
 			$messageId = $event['message']['id'];
+			
+			$url = 'https://api.line.me/v2/bot/message/' . $messageId . '/content';
+			$headers = array('Authorization: Bearer ' . $access_token);
+			$ch = curl_init($url);
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+			$result = curl_exec($ch);
+			curl_close($ch);
+			$file = fopen('AUD_' . $messageId . '.txt','w+');
+			fwrite($file,$result);
+			fclose($file);
 			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
