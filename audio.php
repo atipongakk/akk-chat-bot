@@ -17,7 +17,7 @@
 	$data = [
 		'config' => [$config],
 		'uri' => [$uri]
-	]
+	];
 	
 	$post = json_encode($data);
 	$ch = curl_init($url);
