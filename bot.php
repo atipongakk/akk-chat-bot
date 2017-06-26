@@ -111,6 +111,20 @@ if (!is_null($events['events'])) {
 			$flac = file_get_contents($data->file);
 			file_put_contents('SOU_' . $messageId . '.flac', $flac);
 			
+			$url = 'https://speech.googleapis.com/v1/speech:recognize';
+			$config = [
+				'encoding' => 'FLAC',
+				'sampleRateHertz' => 16000,
+				'languageCode' => 'en-US'
+			];
+			$audio = [
+				'config' => [$config],
+				
+			];
+			
+			
+			
+			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
 			
