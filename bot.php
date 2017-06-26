@@ -102,9 +102,14 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
 			$result = curl_exec($ch);
 			curl_close($ch);
-			$file = fopen('AUD_' . $messageId . '.txt','w+');
+			$file = fopen('AUD_' . $messageId . '.mp4','w+');
 			fwrite($file,$result);
 			fclose($file);
+			
+			$url = 'https://atipongdev.herokuapp.com/AUD_' . $messageId . '.mp4';
+			$data = json_decode(file_get_contents('http://api.rest7.com/v1/sound_convert.php?url=' . $url . '&format=flac'));
+			$flac = file_get_contents($data->file);
+			file_put_contents('SOU_' . $messageId . '.flac', $flac);
 			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
