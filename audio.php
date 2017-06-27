@@ -1,5 +1,5 @@
 <?php
-	$keyAPI = "AIzaSyBuB0uo4TYtyK0RPnFbA9zG2VdNjkiJxh4";
+	$keyAPI = "AIzaSyBuB0uo4TYtyK0RPnFbA9zG2VdNjkiJxh4A";
 	$urlAudio = "https://atipongdev.herokuapp.com/SOU_6299211264895.flac";
 	$headers = array('Content-Type: application/json', 'Authorization: Bearer ' . $keyAPI);
 	$url = "https://speech.googleapis.com/v1/speech:recognize";
