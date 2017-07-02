@@ -137,24 +137,19 @@ if (!is_null($events['events'])) {
 
 			$result = curl_exec($ch);
 			
+			$transcripts = json_decode($result, true);
+			$responseTranscripts = 'Google API Response Error !!';
+			if (!is_null($transcripts['results'])) {
+				$transcript = $transcripts['results'];
+				$text = $transcript["alternatives"]["transcript"];
+				$responseTranscripts = 'Thank for submit audio [' . $text . ']';
+			} else {
+				$responseTranscripts = 'Thank for submit audio [' . $messageId . ']';
+			}
+			
 			$file = fopen('result.txt','w+');
 			fwrite($file,$result);
 			fclose($file);
-			
-			
-			/*$url = 'https://speech.googleapis.com/v1/speech:recognize';
-			$config = [
-				'encoding' => 'FLAC',
-				'sampleRateHertz' => 16000,
-				'languageCode' => 'en-US'
-			];
-			$audio = [
-				'config' => [$config],
-				
-			];*/
-			
-			
-			
 			
 			// Get replyToken
 			$replyToken = $event['replyToken'];
@@ -162,7 +157,7 @@ if (!is_null($events['events'])) {
 			// Build message to reply back
 			$messages = [
 				'type' => 'text',
-				'text' => 'Thank for submit audio [' . $messageId . ']'
+				'text' => $responseTranscripts
 			];
 			
 			// Make a POST Request to Messaging API to reply to sender
