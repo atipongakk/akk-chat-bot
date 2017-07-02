@@ -1,5 +1,5 @@
 <?php
-	$stturl = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=AIzaSyBH-p8ju3zSJ-dN3CFCSxcwOiB5XccHzUU	";
+	$stturl = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=AIzaSyBH-p8ju3zSJ-dN3CFCSxcwOiB5XccHzUU";
 	$upload = file_get_contents("audio.raw");
 	$upload = base64_encode($upload);
 

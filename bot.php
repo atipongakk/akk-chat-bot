@@ -92,6 +92,7 @@ if (!is_null($events['events'])) {
 		//Reply only when message sent is in 'image' format
 		else if($event['type'] == 'message' && $event['message']['type'] == 'audio'){
 			// Get message Id
+			
 			$messageId = $event['message']['id'];
 			
 			$url = 'https://api.line.me/v2/bot/message/' . $messageId . '/content';
@@ -111,7 +112,37 @@ if (!is_null($events['events'])) {
 			$flac = file_get_contents($data->file);
 			file_put_contents('SOU_' . $messageId . '.flac', $flac);
 			
-			$url = 'https://speech.googleapis.com/v1/speech:recognize';
+			$stturl = "https://speech.googleapis.com/v1beta1/speech:syncrecognize?key=AIzaSyBH-p8ju3zSJ-dN3CFCSxcwOiB5XccHzUU";
+			$upload = file_get_contents('SOU_' . $messageId . '.flac');
+			$upload = base64_encode($upload);
+			$data = array(
+				"config"    =>  array(
+					"encoding"      =>  "LINEAR16",
+					"sampleRate"    =>  16000,
+					"languageCode"  =>  "en-US"
+				),
+				"audio"     =>  array(
+					"content"   	=>  $upload,
+				)
+			);
+			
+			$jsonData = json_encode($data);
+
+			$ch = curl_init();
+			curl_setopt($ch, CURLOPT_URL, $stturl);
+			curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: application/json"));
+			curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($ch, CURLOPT_POST, true);
+			curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+
+			$result = curl_exec($ch);
+			
+			$file = fopen('result.txt','w+');
+			fwrite($file,$result);
+			fclose($file);
+			
+			
+			/*$url = 'https://speech.googleapis.com/v1/speech:recognize';
 			$config = [
 				'encoding' => 'FLAC',
 				'sampleRateHertz' => 16000,
@@ -120,7 +151,7 @@ if (!is_null($events['events'])) {
 			$audio = [
 				'config' => [$config],
 				
-			];
+			];*/
 			
 			
 			
