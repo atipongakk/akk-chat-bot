@@ -136,19 +136,23 @@ if (!is_null($events['events'])) {
 			curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
 
 			$result = curl_exec($ch);
-			
+			$prints = $result . "\n";
 			$transcripts = json_decode($result, true);
 			$responseTranscripts = 'Google API Response Error !!';
 			if (!is_null($transcripts['results'])) {
 				$transcript = $transcripts['results'];
-				$text = $transcript["alternatives"]["transcript"];
+				$prints .= "transcript : [" . $transcript . "]\n";
+				$alternatives = $transcript["alternatives"];
+				$prints .= "alternatives : [" . $alternatives . "]\n";
+				$text = $alternatives["transcript"];
+				$prints .= "text : [" . $text . "]\n";
 				$responseTranscripts = 'Thank for submit audio [' . $text . ']';
 			} else {
 				$responseTranscripts = 'Thank for submit audio [' . $messageId . ']';
 			}
 			
 			$file = fopen('result.txt','w+');
-			fwrite($file,$result);
+			fwrite($file,$prints);
 			fclose($file);
 			
 			// Get replyToken
