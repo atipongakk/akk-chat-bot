@@ -117,9 +117,9 @@ if (!is_null($events['events'])) {
 			$upload = base64_encode($upload);
 			$data = array(
 				"config"    =>  array(
-					"encoding"      =>  "LINEAR16",
+					"encoding"      =>  "FLAC",
 					"sampleRate"    =>  16000,
-					"languageCode"  =>  "en-US"
+					"languageCode"  =>  "th-TH"
 				),
 				"audio"     =>  array(
 					"content"   	=>  $upload,
