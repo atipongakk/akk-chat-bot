@@ -118,7 +118,7 @@ if (!is_null($events['events'])) {
 			$data = array(
 				"config"    =>  array(
 					"encoding"      =>  "FLAC",
-					"sampleRate"    =>  16000,
+					"sampleRate"    =>  8000,
 					"languageCode"  =>  "th-TH"
 				),
 				"audio"     =>  array(
